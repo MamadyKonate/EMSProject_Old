@@ -26,12 +26,11 @@ jobs:
     
     - name: Go back one level
       run: cd ..
-      working-directory: ${{ github.workspace }}
-    
-    - name: change to EMSProject
-      working-directory: ./EMSProject
+     # working-directory: ${{ github.workspace }}
       
-    - name: Restore project dependencies
+    - name: Restore project dependencies    
+      working-directory: ./EMSProject
+    
       # restores the project depedencies and tools 
       run: dotnet restore
     - name: Build
