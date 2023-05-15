@@ -1,7 +1,7 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: dotnetBuild
+name: Build and Test .Net application
 
 on:
   push:
@@ -15,8 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ['7.0.x']
-#
+        dotnet-version: ['6.0.x','7.0.x']
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET version ${{ matrix.dotnet-version }}
@@ -44,3 +43,46 @@ jobs:
     - name: Test
       working-directory: ./EMSTestProject
       run: dotnet test --no-build --verbosity normal
+      
+  # Define a deploy to development environment job
+  deployDev:
+    name: Deploy to Development
+    # Job runs only if the event is a pull request
+    if: github.event_name == 'pull_request'
+    # The job needs the build job to pass first
+    needs: [build]
+    runs-on: ubuntu-latest
+    # Define some environment variables
+    environment: 
+      # The environment name must match the envrionment name in the repository
+      name: Development
+      url: 'http//dev/myapp.com'
+    steps:
+      - name: Deploy
+        run: echo Your code is being deployed to http//dev.ems.ie
+  
+  # Our deployment to staging environment
+  deployStaging:
+    name: Deploy to Staging
+    # deploy to staging only if we are committing to main
+    if: github.event.ref == 'refs/heads/main'
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment:
+      name: Staging
+      url: 'http://test.myapp.com'
+    steps:
+    - name: Deploy
+      run: echo I am deploying to staging http://test.ems.ie
+  
+  # Deploy to production environment
+  deployProduction:
+    name: Deploy to Production
+    needs: [deployStaging]
+    runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: 'http://www.ems.ie'
+    steps:
+      - name: Deploy
+        run: echo I am deploying to production
