@@ -34,8 +34,12 @@ jobs:
       # restores the project depedencies and tools 
       run: dotnet restore
     - name: Build
-      working-directory: ./EMSProject
-      
+      working-directory: ./EMSProject      
       run: dotnet build --no-restore
+      
+    - name: Go back one level
+      run: cd ..
+      
     - name: Test
+      working-directory: ./EMSTestProject
       run: dotnet test --no-build --verbosity normal
