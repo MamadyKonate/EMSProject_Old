@@ -25,7 +25,7 @@ jobs:
         dotnet-version:  ${{ matrix.dotnet-version }}
     
     - name: Go back one level
-      run: cd..
+      run: cd ..
       working-directory: ${{ github.workspace }}
      
     - name: Restore project dependencies
