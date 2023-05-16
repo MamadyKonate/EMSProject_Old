@@ -6,9 +6,9 @@ namespace EMSProject.ViewModels
     {
         [Key]
         public int Id { get; set; }
-        public string Email { get; set; }
-        public string CurrentPassword { get; set; }
-        public string NewPassword { get; set; }
-        public string ReEnterNewPassword { get; set; }
+        public string Email { get; set; } = default!;
+        public string CurrentPassword { get; set; } = default!;
+        public string NewPassword { get; set; } = default!;
+        public string ReEnterNewPassword { get; set; } = default!;
     }
 }
