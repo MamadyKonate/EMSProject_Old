@@ -9,14 +9,14 @@ namespace EMSProject.Models
         public int Id { get; set; }
         [Required]
         [StringLength(40, MinimumLength = 2)]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = "default first name";
         [Required]
         [StringLength(40, MinimumLength = 2)]
-        public string Surname { get; set; }
+        public string Surname { get; set; } = "default surname";
         [Required, EmailAddress]
-        public string Email { get; set; }
+        public string Email { get; set; } = "default@ems.ie";
         [Required]
-        public string JobTitle { get; set; }
+        public string JobTitle { get; set; } = "default job title";
         [Required, EmailAddress]
         public string ManagerEmail { get; set; }
         [Required, DataType(DataType.Date)]       
