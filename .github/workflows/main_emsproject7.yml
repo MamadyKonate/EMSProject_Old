@@ -21,6 +21,15 @@ jobs:
         with:
           dotnet-version: '7.x'
           include-prerelease: true
+          
+      
+      - name: Go back one level
+        run: cd ..
+       # working-directory: ${{ github.workspace }}
+      
+      - name: Restore project dependencies    
+        working-directory: ./EMSProject   
+        
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
