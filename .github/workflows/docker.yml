@@ -67,7 +67,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: /mamy02/docker-demoocker-demo
+          tags: 'mamy02/docker-demo'
 
 
 
